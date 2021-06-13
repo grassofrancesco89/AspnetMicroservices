@@ -71,3 +71,10 @@ services:
 
   
 
+
+  discount.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
