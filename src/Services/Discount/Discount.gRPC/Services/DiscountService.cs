@@ -1,4 +1,5 @@
-﻿using Discount.gRPC.Repositories.Interfaces;
+﻿using AutoMapper;
+using Discount.gRPC.Repositories.Interfaces;
 using Discount.Grpc.Protos;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
@@ -12,13 +13,13 @@ namespace Discount.gRPC.Services
     public class DiscountService : DiscountProtoService.DiscountProtoServiceBase
     {
         private readonly IDiscountRepository _repository;
-        //private readonly IMapper _mapper;
+        private readonly IMapper _mapper;
         private readonly ILogger<DiscountService> _logger;
 
         public DiscountService(IDiscountRepository repository, IMapper mapper, ILogger<DiscountService> logger)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-            //_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
