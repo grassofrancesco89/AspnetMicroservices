@@ -11,10 +11,11 @@ namespace Shopping.Aggregator.Services
     public class OrderService: IOrderService
     {
         private readonly HttpClient _client;
+        private readonly string orderV1 = "/api/v1/Order";
 
         public async Task<IEnumerable<OrderResponseModel>> GetOrdersByUserName(string userName)
         {
-            var response = await _client.GetAsync($"/api/v1/Order/{userName}");
+            var response = await _client.GetAsync($"{orderV1}/{userName}");
             return await response.ReadContentAs<List<OrderResponseModel>>();
         }
     }
