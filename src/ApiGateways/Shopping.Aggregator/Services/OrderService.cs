@@ -13,6 +13,11 @@ namespace Shopping.Aggregator.Services
         private readonly HttpClient _client;
         private readonly string orderV1 = "/api/v1/Order";
 
+        public OrderService(HttpClient client)
+        {
+            _client = client ?? throw new ArgumentNullException(nameof(client));
+        }
+
         public async Task<IEnumerable<OrderResponseModel>> GetOrdersByUserName(string userName)
         {
             var response = await _client.GetAsync($"{orderV1}/{userName}");
