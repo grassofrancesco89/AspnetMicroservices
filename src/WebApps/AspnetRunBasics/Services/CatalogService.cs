@@ -32,7 +32,7 @@ namespace AspnetRunBasics.Services
 
         public async Task<IEnumerable<CatalogModel>> GetCatalogByCategory(string category)
         {
-            var response = await _client.GetAsync($"{_ocelotPath}/GetProductByCategory/{category}");
+            var response = await _client.GetAsync($"{_ocelotBasePath}/GetProductByCategory/{category}");
             return await response.ReadContentAs<List<CatalogModel>>();
         }
 
