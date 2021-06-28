@@ -38,6 +38,7 @@ namespace AspnetRunBasics
             }
             else
             {
+                SelectedCategory = "All";
                 ProductList = productList;
             }
 
