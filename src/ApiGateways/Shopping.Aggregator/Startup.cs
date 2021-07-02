@@ -65,7 +65,7 @@ namespace Shopping.Aggregator
             return HttpPolicyExtensions
                     .HandleTransientHttpError()
                     .WaitAndRetryAsync(
-                        retryCount: 3,
+                        retryCount: 5,
                         sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
                         onRetry: (exception, retryCount, context) =>
                         {
@@ -78,7 +78,7 @@ namespace Shopping.Aggregator
             return HttpPolicyExtensions
                     .HandleTransientHttpError()
                     .CircuitBreakerAsync(
-                        handledEventsAllowedBeforeBreaking: 3,
+                        handledEventsAllowedBeforeBreaking: 5,
                         durationOfBreak: TimeSpan.FromSeconds(30)
                     );
         }
