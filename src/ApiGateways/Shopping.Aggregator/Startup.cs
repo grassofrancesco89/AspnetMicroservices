@@ -4,12 +4,11 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Shopping.Aggregator.Services;
 using System;
-using System.Net.Http;
+using Polly;
 
 namespace Shopping.Aggregator
 {
@@ -35,7 +34,8 @@ namespace Shopping.Aggregator
 
             services.AddHttpClient<IBasketService, BasketService>(c =>
                 c.BaseAddress = new Uri(Configuration["ApiSettings:BasketUrl"]))
-                .AddHttpMessageHandler<LoggingDelegatingHandler>();
+                .AddHttpMessageHandler<LoggingDelegatingHandler>()
+                .AddTransientHttpErrorPolicy(policy => policy.WaitAndRetryAsync(3, _=> TimeSpan.FromSeconds(2)));
             //.AddPolicyHandler(GetRetryPolicy())
             //.AddPolicyHandler(GetCircuitBreakerPolicy());
 
