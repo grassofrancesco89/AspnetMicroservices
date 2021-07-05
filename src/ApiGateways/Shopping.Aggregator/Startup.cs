@@ -12,6 +12,7 @@ using Polly;
 using System.Net.Http;
 using Polly.Extensions.Http;
 using Serilog;
+using HealthChecks.UI.Client;
 
 namespace Shopping.Aggregator
 {
@@ -100,6 +101,11 @@ namespace Shopping.Aggregator
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
+                {
+                    Predicate = _ => true,
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                });
             });
         }
     }
