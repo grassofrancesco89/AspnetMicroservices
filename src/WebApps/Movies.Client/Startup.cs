@@ -10,6 +10,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Movies.Client.Data;
+using Movies.Client.ApiServices.Interfaces;
+using Movies.Client.ApiServices;
 
 namespace Movies.Client
 {
@@ -26,6 +28,8 @@ namespace Movies.Client
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddScoped<IMovieApiService, MovieApiService>();
 
             services.AddDbContext<MoviesClientContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MoviesClientContext")));
