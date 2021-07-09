@@ -9,7 +9,7 @@ using Movies.Client.Models;
 
 namespace Movies.Client.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class MoviesController : Controller
     {
         private readonly IMovieApiService _movieApiService;
@@ -17,6 +17,13 @@ namespace Movies.Client.Controllers
         public MoviesController(IMovieApiService movieApiService)
         {
             _movieApiService = movieApiService ?? throw new ArgumentNullException(nameof(movieApiService));
+        }
+
+        //GET: Movies
+        public async Task<IActionResult> Index()
+        {
+            
+            return View(await _movieApiService.GetMovies());
         }
 
         // GET: Movies

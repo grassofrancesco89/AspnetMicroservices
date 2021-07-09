@@ -11,35 +11,51 @@ namespace Movies.Client.ApiServices
 {
     public class MovieApiService : IMovieApiService
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        //private readonly IHttpClientFactory _httpClientFactory;
+        //private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public MovieApiService(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor)
-        {
-            _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
-            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
-        }
+        //public MovieApiService(IHttpContextAccessor httpContextAccessor)
+        //{
+        //    _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
+        //    _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
+        //}
 
         public async Task<IEnumerable<Movie>> GetMovies()
         {
 
+            var moviesList = new List<Movie>();
+            moviesList.Add(
+                    new Movie 
+                    {
+                        Id = 1,
+                        Genre = "Comics",
+                        Title = "asd",
+                        Rating = "9.2",
+                        ImageUrl = "images/src",
+                        ReleaseDate = DateTime.Now,
+                        Owner = "swn"
+                    }
+                
+                );
+            return await Task.FromResult(moviesList);
+
             ////////////////////////
             // WAY 1 :
 
-            var httpClient = _httpClientFactory.CreateClient("MovieAPIClient");
+            //var httpClient = _httpClientFactory.CreateClient("MovieAPIClient");
 
-            var request = new HttpRequestMessage(
-                HttpMethod.Get,
-                "/movies");
+            //var request = new HttpRequestMessage(
+            //    HttpMethod.Get,
+            //    "/movies");
 
-            var response = await httpClient.SendAsync(
-                request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+            //var response = await httpClient.SendAsync(
+            //    request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
 
-            response.EnsureSuccessStatusCode();
+            //response.EnsureSuccessStatusCode();
 
-            var content = await response.Content.ReadAsStringAsync();
-            var movieList = JsonConvert.DeserializeObject<List<Movie>>(content);
-            return movieList;
+            //var content = await response.Content.ReadAsStringAsync();
+            //var movieList = JsonConvert.DeserializeObject<List<Movie>>(content);
+            //return movieList;
 
             ////////////////////////// //////////////////////// ////////////////////////
             //// WAY 2 :
