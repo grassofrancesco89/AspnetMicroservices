@@ -19,11 +19,10 @@ namespace IdentityServer_4
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIdentityServer()
-                .AddInMemoryClients(new List<Client>())
-                .AddInMemoryApiScopes(new List<ApiScope>())
-                .AddInMemoryApiResources(new List<ApiResource>())
-                .AddInMemoryIdentityResources(new List<IdentityResource>())
-                .AddTestUsers(new List<TestUser>())
+                .AddInMemoryClients(Config.Clients)
+                .AddInMemoryApiScopes(Config.ApiScopes)
+                .AddInMemoryIdentityResources(Config.IdentityResources)
+                .AddTestUsers(Config.TestUsers)
                 .AddDeveloperSigningCredential();
         }
 
