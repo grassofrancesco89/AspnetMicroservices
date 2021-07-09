@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Movies.Client.Data;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Movies.Client.ApiServices.Interfaces;
 using Movies.Client.Models;
 
 namespace Movies.Client.Controllers
@@ -38,12 +38,12 @@ namespace Movies.Client.Controllers
             }
         }
 
-        [Authorize(Roles = "admin")]
-        public async Task<IActionResult> OnlyAdmin()
-        {
-            var userInfo = await _movieApiService.GetUserInfo();
-            return View(userInfo);
-        }
+        //[Authorize(Roles = "admin")]
+        //public async Task<IActionResult> OnlyAdmin()
+        //{
+        //    var userInfo = await _movieApiService.GetUserInfo();
+        //    return View(userInfo);
+        //}
 
 
         // GET: Movies/Details/5
@@ -185,11 +185,11 @@ namespace Movies.Client.Controllers
             //return _context.Movie.Any(e => e.Id == id);
         }
 
-        public async Task Logout()
-        {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
-        }
+        //public async Task Logout()
+        //{
+        //    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        //    await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+        //}
 
     }
 }
